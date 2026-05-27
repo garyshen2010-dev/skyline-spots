@@ -1,16 +1,49 @@
-# React + Vite
+# SkylineSpots
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SkylineSpots is a city-view discovery website that helps users find skyline viewpoints, rooftops, parks, bridges, and hidden photo spots in different cities.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+https://skyline-spots.vercel.app/
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Home page with a modern dark city-explorer design
+- Explore Cities page
+- Search/filter bar for cities and tags
+- City detail pages
+- Skyline spot cards
+- Individual spot detail pages
+- Submit Spot form with confirmation message
+- Responsive layout for different screen sizes
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- Vite
+- React Router
+- CSS
+- Vercel for deployment
+- GitHub for version control
+
+## Current Cities
+
+- Houston
+- New York City
+- Chicago
+- Los Angeles
+- London
+- Tokyo
+
+## Future Improvements
+
+- Add more skyline spots for each city
+- Add better real images for every spot
+- Add map integration
+- Save submitted spots with a database
+- Add user reviews and ratings
+- Add admin approval for submitted spots
+
+## Project Goal
+
+The goal of SkylineSpots is to create a clean, useful, and visually appealing platform for people who enjoy city skylines, photography, travel, and discovering hidden viewpoints.
