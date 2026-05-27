@@ -1,0 +1,21 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  background-color: #080f14;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #080f14;
+  color: white;
+}
+
+button {
+  font-family: inherit;
+}
