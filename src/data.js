@@ -50,7 +50,7 @@ export const cities = [
 ];
 
 export const spots = [
-  {
+    {
     name: "Buffalo Bayou Park",
     city: "Houston",
     description:
@@ -59,8 +59,22 @@ export const spots = [
     bestTime: "Sunset",
     type: "Park",
     access: "Free",
+    address: "Buffalo Bayou Park, Houston, TX",
+    hiddenLevel: "Popular but worth it",
+    submittedBy: "skylinehunter21",
+    upvotes: 42,
     image: "https://images.unsplash.com/photo-1531218150217-54595bc2b934",
     tags: ["Free", "Sunset", "Photography"],
+    comments: [
+      {
+        username: "houstonviews",
+        text: "Best time is right before sunset. The skyline looks clean from the trail.",
+      },
+      {
+        username: "citysnapper",
+        text: "Can get crowded, but it is still one of the easiest skyline spots to visit.",
+      },
+    ],
   },
   {
     name: "Eleanor Tinsley Park",
@@ -123,18 +137,8 @@ export const spots = [
     tags: ["Overlook", "Downtown", "Quick Stop"],
   },
 
-  {
-    name: "Brooklyn Bridge Park",
-    city: "New York City",
-    description:
-      "One of the most recognizable views of Manhattan, especially at night.",
-    rating: 4.9,
-    bestTime: "Night",
-    type: "Waterfront Park",
-    access: "Free",
-    image: "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee",
-    tags: ["Iconic", "Night View", "Waterfront"],
-  },
+  
+
   {
     name: "Adler Planetarium",
     city: "Chicago",

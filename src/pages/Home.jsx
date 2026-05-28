@@ -17,10 +17,10 @@ function Home() {
       <section className="hero">
         <div className="hero-content">
           <p className="tagline">CITY VIEWS • HIDDEN GEMS • SKYLINE SPOTS</p>
-          <h1>Find the best skyline views around the world.</h1>
+          <h1>Discover hidden skyline spots shared by locals.</h1>
           <p className="hero-text">
-            Discover rooftops, parks, bridges, overlooks, and hidden photo spots
-            with the best city views.
+            Find niche rooftops, parking garages, bridges, parks, and overlooked city-view
+            spots submitted by people who know the area best.
           </p>
           <a href="#cities">
             <button>Start Exploring</button>
@@ -93,10 +93,10 @@ function Home() {
       </section>
 
       <section className="section submit-section" id="submit">
-        <h2>Know a great skyline spot?</h2>
+        <h1>Discover hidden skyline spots shared by locals.</h1>
         <p>
-          Help other city explorers find rooftops, parks, bridges, and hidden
-          gems with unforgettable views.
+          Find niche rooftops, parking garages, bridges, parks, and overlooked city-view
+          spots submitted by people who know the area best.
         </p>
 
         <Link to="/submit">

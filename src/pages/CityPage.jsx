@@ -102,6 +102,14 @@ function CityPage() {
                   <p>
                     <strong>Access:</strong> {spot.access}
                   </p>
+                  <p>
+                    <strong>Hidden:</strong> {spot.hiddenLevel ?? "Not listed"}
+                  </p>
+                </div>
+
+                <div className="mini-community-row">
+                  <p>▲ {spot.upvotes ?? 0} upvotes</p>
+                  <p>Submitted by @{spot.submittedBy ?? "anonymous"}</p>
                 </div>
 
                 <div className="tag-row">

@@ -62,7 +62,18 @@ function SpotPage() {
 
       <section className="section spot-info-section">
         <div className="spot-info-card">
-          <h2>Spot Details</h2>
+          <div className="community-header">
+            <div>
+              <p className="section-label">COMMUNITY SPOT</p>
+              <h2>Spot Details</h2>
+            </div>
+
+            <div className="upvote-box">
+              <p>▲</p>
+              <h3>{spot.upvotes ?? 0}</h3>
+              <p>upvotes</p>
+            </div>
+          </div>
 
           <div className="detail-grid">
             <div>
@@ -86,11 +97,45 @@ function SpotPage() {
             </div>
           </div>
 
+          <div className="community-details">
+            <p>
+              <strong>Submitted by:</strong> @{spot.submittedBy ?? "anonymous"}
+            </p>
+            <p>
+              <strong>Location:</strong> {spot.address ?? "Location not listed"}
+            </p>
+            <p>
+              <strong>Hidden Level:</strong>{" "}
+              {spot.hiddenLevel ?? "Not specified"}
+            </p>
+          </div>
+
           <p className="spot-long-text">
-            This spot is recommended for skyline viewing, photography, and city
-            exploring. Future versions of SkylineSpots could include directions,
-            parking notes, user reviews, safety tips, and submitted photos.
+            This spot is part of the SkylineSpots community map of city-view
+            locations. The goal is to help people find not only famous skyline
+            views, but also underrated, local, and specific hidden spots that
+            are usually discovered through word of mouth.
           </p>
+
+          <div className="comments-section">
+            <h2>Comments</h2>
+
+            {spot.comments && spot.comments.length > 0 ? (
+              <div className="comments-list">
+                {spot.comments.map((comment, index) => (
+                  <div className="comment-card" key={index}>
+                    <h4>@{comment.username}</h4>
+                    <p>{comment.text}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="spot-long-text">
+                No comments yet. In a future version, users will be able to
+                comment on this spot.
+              </p>
+            )}
+          </div>
 
           <Link to={`/city/${spot.city.toLowerCase().replaceAll(" ", "-")}`}>
             <button>Back to {spot.city}</button>
