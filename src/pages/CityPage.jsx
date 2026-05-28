@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { cities, spots } from "../data.js";
 import "../App.css";
 
 function CityPage() {
   const { cityName } = useParams();
+
+  const [discoveryFilter, setDiscoveryFilter] = useState("All");
+  const [typeFilter, setTypeFilter] = useState("All");
+  const [tagFilter, setTagFilter] = useState("All");
 
   const city = cities.find(
     (item) => item.name.toLowerCase().replaceAll(" ", "-") === cityName
@@ -31,6 +36,18 @@ function CityPage() {
   }
 
   const citySpots = spots.filter((spot) => spot.city === city.name);
+
+  const filteredSpots = citySpots.filter((spot) => {
+    const matchesDiscovery =
+      discoveryFilter === "All" || spot.hiddenLevel === discoveryFilter;
+
+    const matchesType = typeFilter === "All" || spot.type === typeFilter;
+
+    const matchesTag =
+      tagFilter === "All" || spot.tags.some((tag) => tag === tagFilter);
+
+    return matchesDiscovery && matchesType && matchesTag;
+  });
 
   return (
     <div className="app">
@@ -64,16 +81,73 @@ function CityPage() {
 
       <section className="section" id="spots">
         <div className="section-header">
-          <p className="section-label">CITY GUIDE</p>
-          <h2>Best Skyline Spots in {city.name}</h2>
+          <p className="section-label">COMMUNITY CITY GUIDE</p>
+          <h2>Skyline Spots in {city.name}</h2>
           <p>
-            Explore parks, rooftops, bridges, and overlooks with strong skyline
-            views.
+            Browse user-submitted parks, rooftops, bridges, parking garages, and
+            hidden local viewpoints.
           </p>
         </div>
 
+        <div className="filter-panel">
+          <div className="filter-group">
+            <h3>Discovery Level</h3>
+            <div className="filter-buttons">
+              {["All", "Hidden Gem", "Local Favorite", "Popular but worth it"].map(
+                (filter) => (
+                  <button
+                    key={filter}
+                    className={discoveryFilter === filter ? "active-filter" : ""}
+                    onClick={() => setDiscoveryFilter(filter)}
+                  >
+                    {filter}
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="filter-group">
+            <h3>Spot Type</h3>
+            <div className="filter-buttons">
+              {["All", "Park", "Rooftop", "Bridge", "Parking Garage", "Overlook"].map(
+                (filter) => (
+                  <button
+                    key={filter}
+                    className={typeFilter === filter ? "active-filter" : ""}
+                    onClick={() => setTypeFilter(filter)}
+                  >
+                    {filter}
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="filter-group">
+            <h3>Best For</h3>
+            <div className="filter-buttons">
+              {["All", "Sunset", "Night View", "Photography", "Free"].map(
+                (filter) => (
+                  <button
+                    key={filter}
+                    className={tagFilter === filter ? "active-filter" : ""}
+                    onClick={() => setTagFilter(filter)}
+                  >
+                    {filter}
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+
+        <p className="results-count">
+          Showing {filteredSpots.length} of {citySpots.length} spots
+        </p>
+
         <div className="city-spot-grid">
-          {citySpots.map((spot) => (
+          {filteredSpots.map((spot) => (
             <div className="city-spot-card" key={spot.name}>
               <div
                 className="spot-image"
@@ -119,12 +193,19 @@ function CityPage() {
                 </div>
 
                 <Link to={`/spot/${spot.name.toLowerCase().replaceAll(" ", "-")}`}>
-  <                 button>View Details</button>
+                  <button>View Details</button>
                 </Link>
               </div>
             </div>
           ))}
         </div>
+
+        {filteredSpots.length === 0 && (
+          <div className="empty-state">
+            <h3>No spots found</h3>
+            <p>Try changing one of the filters above.</p>
+          </div>
+        )}
       </section>
     </div>
   );
