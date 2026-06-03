@@ -9,6 +9,7 @@ function CityPage() {
   const [discoveryFilter, setDiscoveryFilter] = useState("All");
   const [typeFilter, setTypeFilter] = useState("All");
   const [tagFilter, setTagFilter] = useState("All");
+  const [sortOption, setSortOption] = useState("Most Upvoted");
 
   const city = cities.find(
     (item) => item.name.toLowerCase().replaceAll(" ", "-") === cityName
@@ -37,17 +38,33 @@ function CityPage() {
 
   const citySpots = spots.filter((spot) => spot.city === city.name);
 
-  const filteredSpots = citySpots.filter((spot) => {
-    const matchesDiscovery =
-      discoveryFilter === "All" || spot.hiddenLevel === discoveryFilter;
+  const filteredSpots = citySpots
+    .filter((spot) => {
+      const matchesDiscovery =
+        discoveryFilter === "All" || spot.hiddenLevel === discoveryFilter;
 
-    const matchesType = typeFilter === "All" || spot.type === typeFilter;
+      const matchesType = typeFilter === "All" || spot.type === typeFilter;
 
-    const matchesTag =
-      tagFilter === "All" || spot.tags.some((tag) => tag === tagFilter);
+      const matchesTag =
+        tagFilter === "All" || spot.tags.some((tag) => tag === tagFilter);
 
-    return matchesDiscovery && matchesType && matchesTag;
-  });
+      return matchesDiscovery && matchesType && matchesTag;
+    })
+    .sort((a, b) => {
+      if (sortOption === "Most Upvoted") {
+        return (b.upvotes ?? 0) - (a.upvotes ?? 0);
+      }
+
+      if (sortOption === "Highest Rated") {
+        return (b.rating ?? 0) - (a.rating ?? 0);
+      }
+
+      if (sortOption === "Newest") {
+        return citySpots.indexOf(b) - citySpots.indexOf(a);
+      }
+
+      return 0;
+    });
 
   return (
     <div className="app">
@@ -138,6 +155,21 @@ function CityPage() {
                   </button>
                 )
               )}
+            </div>
+          </div>
+
+          <div className="filter-group">
+            <h3>Sort By</h3>
+            <div className="filter-buttons">
+              {["Most Upvoted", "Highest Rated", "Newest"].map((option) => (
+                <button
+                  key={option}
+                  className={sortOption === option ? "active-filter" : ""}
+                  onClick={() => setSortOption(option)}
+                >
+                  {option}
+                </button>
+              ))}
             </div>
           </div>
         </div>
