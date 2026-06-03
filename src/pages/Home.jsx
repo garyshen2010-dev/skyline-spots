@@ -9,6 +9,7 @@ function Home() {
         <h2>SkylineSpots</h2>
         <div className="nav-links">
           <Link to="/explore">Explore</Link>
+          <Link to="/community">Community</Link>
           <a href="#spots">Top Spots</a>
           <Link to="/submit">Submit</Link>
         </div>

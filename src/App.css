@@ -803,3 +803,93 @@ footer {
   justify-content: center;
   margin-top: 34px;
 }
+.community-page .section-header {
+  max-width: 760px;
+}
+
+.community-page .section-header p {
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.community-feed {
+  display: grid;
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.community-feed-card {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.community-feed-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(103, 232, 249, 0.4);
+}
+
+.community-feed-image {
+  min-height: 220px;
+  background-size: cover;
+  background-position: center;
+}
+
+.community-feed-content {
+  padding: 26px;
+}
+
+.community-feed-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.community-feed-top h3 {
+  margin: 6px 0 12px;
+  font-size: 26px;
+}
+
+.community-feed-content > p {
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.feed-upvotes {
+  min-width: 80px;
+  text-align: center;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(103, 232, 249, 0.25);
+}
+
+.feed-upvotes p,
+.feed-upvotes h4 {
+  margin: 0;
+}
+
+.feed-upvotes p {
+  color: #67e8f9;
+  font-weight: bold;
+}
+
+.feed-upvotes h4 {
+  font-size: 24px;
+}
+
+@media (max-width: 850px) {
+  .community-feed-card {
+    grid-template-columns: 1fr;
+  }
+
+  .community-feed-image {
+    height: 220px;
+  }
+}

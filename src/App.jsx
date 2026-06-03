@@ -4,6 +4,7 @@ import CityPage from "./pages/CityPage";
 import SubmitSpot from "./pages/SubmitSpot";
 import Explore from "./pages/Explore";
 import SpotPage from "./pages/SpotPage";
+import Community from "./pages/Community";
 import "./App.css";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/community" element={<Community />} />
         <Route path="/city/:cityName" element={<CityPage />} />
         <Route path="/spot/:spotName" element={<SpotPage />} />
         <Route path="/submit" element={<SubmitSpot />} />
