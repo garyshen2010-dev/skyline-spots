@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { spots } from "../data.js";
 import "../App.css";
@@ -8,6 +9,11 @@ function SpotPage() {
   const spot = spots.find(
     (item) => item.name.toLowerCase().replaceAll(" ", "-") === spotName
   );
+
+  const [hasUpvoted, setHasUpvoted] = useState(false);
+  const [username, setUsername] = useState("");
+  const [commentText, setCommentText] = useState("");
+  const [localComments, setLocalComments] = useState(spot?.comments ?? []);
 
   if (!spot) {
     return (
@@ -28,6 +34,30 @@ function SpotPage() {
         </section>
       </div>
     );
+  }
+
+  const displayedUpvotes = hasUpvoted
+    ? (spot.upvotes ?? 0) + 1
+    : spot.upvotes ?? 0;
+
+  function handleUpvote() {
+    setHasUpvoted(!hasUpvoted);
+  }
+
+  function handleCommentSubmit(event) {
+    event.preventDefault();
+
+    if (username.trim() === "" || commentText.trim() === "") {
+      return;
+    }
+
+    const newComment = {
+      username: username.trim(),
+      text: commentText.trim(),
+    };
+
+    setLocalComments([newComment, ...localComments]);
+    setCommentText("");
   }
 
   return (
@@ -68,11 +98,14 @@ function SpotPage() {
               <h2>Spot Details</h2>
             </div>
 
-            <div className="upvote-box">
+            <button
+              className={hasUpvoted ? "upvote-box upvoted" : "upvote-box"}
+              onClick={handleUpvote}
+            >
               <p>▲</p>
-              <h3>{spot.upvotes ?? 0}</h3>
-              <p>upvotes</p>
-            </div>
+              <h3>{displayedUpvotes}</h3>
+              <p>{hasUpvoted ? "upvoted" : "upvotes"}</p>
+            </button>
           </div>
 
           <div className="detail-grid">
@@ -120,9 +153,26 @@ function SpotPage() {
           <div className="comments-section">
             <h2>Comments</h2>
 
-            {spot.comments && spot.comments.length > 0 ? (
+            <form className="comment-form" onSubmit={handleCommentSubmit}>
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+
+              <textarea
+                placeholder="Add a comment about this spot..."
+                value={commentText}
+                onChange={(event) => setCommentText(event.target.value)}
+              />
+
+              <button type="submit">Add Comment</button>
+            </form>
+
+            {localComments.length > 0 ? (
               <div className="comments-list">
-                {spot.comments.map((comment, index) => (
+                {localComments.map((comment, index) => (
                   <div className="comment-card" key={index}>
                     <h4>@{comment.username}</h4>
                     <p>{comment.text}</p>
@@ -131,8 +181,7 @@ function SpotPage() {
               </div>
             ) : (
               <p className="spot-long-text">
-                No comments yet. In a future version, users will be able to
-                comment on this spot.
+                No comments yet. Be the first to comment on this spot.
               </p>
             )}
           </div>
