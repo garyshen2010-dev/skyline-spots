@@ -798,3 +798,8 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+.center-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 34px;
+}

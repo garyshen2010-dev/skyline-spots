@@ -32,6 +32,10 @@ function Home() {
         <div className="section-header">
           <p className="section-label">EXPLORE</p>
           <h2>Featured Cities</h2>
+          <p>
+            Browse cities with community-submitted skyline views, hidden spots,
+            rooftops, bridges, and local viewpoints.
+          </p>
         </div>
 
         <div className="card-grid">
@@ -96,12 +100,22 @@ function Home() {
             </Link>
           ))}
         </div>
+
+        <div className="center-button">
+          <Link to="/explore">
+            <button>View All Community Spots</button>
+          </Link>
+        </div>
       </section>
 
       <section className="section dark-section" id="spots">
         <div className="section-header">
           <p className="section-label">TOP PICKS</p>
           <h2>Top Skyline Spots</h2>
+          <p>
+            A quick look at popular and community-recommended places to view the
+            skyline.
+          </p>
         </div>
 
         <div className="spot-list">
