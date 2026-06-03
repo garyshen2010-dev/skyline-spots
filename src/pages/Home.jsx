@@ -16,11 +16,11 @@ function Home() {
 
       <section className="hero">
         <div className="hero-content">
-          <p className="tagline">CITY VIEWS • HIDDEN GEMS • SKYLINE SPOTS</p>
+          <p className="tagline">CITY VIEWS • HIDDEN GEMS • LOCAL SPOTS</p>
           <h1>Discover hidden skyline spots shared by locals.</h1>
           <p className="hero-text">
-            Find niche rooftops, parking garages, bridges, parks, and overlooked city-view
-            spots submitted by people who know the area best.
+            Find niche rooftops, parking garages, bridges, parks, and overlooked
+            city-view spots submitted by people who know the area best.
           </p>
           <a href="#cities">
             <button>Start Exploring</button>
@@ -62,6 +62,42 @@ function Home() {
         </div>
       </section>
 
+      <section className="section recent-section">
+        <div className="section-header">
+          <p className="section-label">COMMUNITY</p>
+          <h2>Recent Community Submissions</h2>
+          <p>
+            Discover skyline spots shared by local users, from hidden parks to
+            rooftops, bridges, overlooks, and lowkey city-view angles.
+          </p>
+        </div>
+
+        <div className="recent-grid">
+          {spots.slice(0, 4).map((spot) => (
+            <Link
+              to={`/spot/${spot.name.toLowerCase().replaceAll(" ", "-")}`}
+              className="recent-card"
+              key={spot.name}
+            >
+              <p className="country">{spot.city}</p>
+              <h3>{spot.name}</h3>
+              <p>{spot.description}</p>
+
+              <div className="mini-community-row">
+                <p>▲ {spot.upvotes ?? 0} upvotes</p>
+                <p>@{spot.submittedBy ?? "anonymous"}</p>
+              </div>
+
+              <div className="tag-row">
+                <span>{spot.hiddenLevel ?? "Community Spot"}</span>
+                <span>{spot.type}</span>
+                <span>{spot.bestTime}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       <section className="section dark-section" id="spots">
         <div className="section-header">
           <p className="section-label">TOP PICKS</p>
@@ -93,10 +129,10 @@ function Home() {
       </section>
 
       <section className="section submit-section" id="submit">
-        <h1>Discover hidden skyline spots shared by locals.</h1>
+        <h2>Know a hidden skyline spot?</h2>
         <p>
-          Find niche rooftops, parking garages, bridges, parks, and overlooked city-view
-          spots submitted by people who know the area best.
+          Share a specific address, local viewpoint, rooftop, bridge, parking
+          garage, or underrated place where people can admire the city skyline.
         </p>
 
         <Link to="/submit">
