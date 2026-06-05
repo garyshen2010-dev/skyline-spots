@@ -36,7 +36,14 @@ function CityPage() {
     );
   }
 
-  const citySpots = spots.filter((spot) => spot.city === city.name);
+  const submittedSpots =
+  JSON.parse(localStorage.getItem("submittedSpots")) || [];
+
+  const allSpots = [...submittedSpots, ...spots];
+
+  const citySpots = allSpots.filter(
+    (spot) => spot.city.toLowerCase() === city.name.toLowerCase()
+  );
 
   const filteredSpots = citySpots
     .filter((spot) => {

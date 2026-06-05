@@ -893,3 +893,30 @@ footer {
     height: 220px;
   }
 }
+.success-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.feed-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.secondary-button {
+  margin: 0;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cffafe;
+  border: 1px solid rgba(103, 232, 249, 0.25);
+}
+
+.secondary-button:hover {
+  background: rgba(6, 182, 212, 0.18);
+  color: white;
+}

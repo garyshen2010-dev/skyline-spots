@@ -6,7 +6,12 @@ import "../App.css";
 function SpotPage() {
   const { spotName } = useParams();
 
-  const spot = spots.find(
+  const submittedSpots =
+  JSON.parse(localStorage.getItem("submittedSpots")) || [];
+
+  const allSpots = [...submittedSpots, ...spots];
+
+  const spot = allSpots.find(
     (item) => item.name.toLowerCase().replaceAll(" ", "-") === spotName
   );
 

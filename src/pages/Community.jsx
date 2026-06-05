@@ -4,13 +4,18 @@ import { spots } from "../data.js";
 import "../App.css";
 
 function Community() {
+  const submittedSpots =
+    JSON.parse(localStorage.getItem("submittedSpots")) || [];
+
+  const allSpots = [...submittedSpots, ...spots];
+
   const [searchTerm, setSearchTerm] = useState("");
   const [cityFilter, setCityFilter] = useState("All");
   const [discoveryFilter, setDiscoveryFilter] = useState("All");
   const [typeFilter, setTypeFilter] = useState("All");
   const [sortOption, setSortOption] = useState("Most Upvoted");
 
-  const cities = ["All", ...new Set(spots.map((spot) => spot.city))];
+  const cities = ["All", ...new Set(allSpots.map((spot) => spot.city))];
 
   const discoveryLevels = [
     "All",
@@ -27,13 +32,16 @@ function Community() {
     "Bridge",
     "Parking Garage",
     "Overlook",
+    "Street Corner",
+    "Restaurant/Patio",
+    "Other",
     "Waterfront Park",
     "Observation Deck",
     "Street View",
     "Elevated Park",
   ];
 
-  const filteredSpots = spots
+  const filteredSpots = allSpots
     .filter((spot) => {
       const searchText = `
         ${spot.name}
@@ -64,11 +72,16 @@ function Community() {
       }
 
       if (sortOption === "Newest") {
-        return spots.indexOf(b) - spots.indexOf(a);
+        return allSpots.indexOf(a) - allSpots.indexOf(b);
       }
 
       return 0;
     });
+
+  function clearLocalSubmissions() {
+    localStorage.removeItem("submittedSpots");
+    window.location.reload();
+  }
 
   return (
     <div className="app">
@@ -164,16 +177,24 @@ function Community() {
           </div>
         </div>
 
-        <p className="results-count">
-          Showing {filteredSpots.length} of {spots.length} community spots
-        </p>
+        <div className="feed-toolbar">
+          <p className="results-count">
+            Showing {filteredSpots.length} of {allSpots.length} community spots
+          </p>
+
+          {submittedSpots.length > 0 && (
+            <button className="secondary-button" onClick={clearLocalSubmissions}>
+              Clear Local Submissions
+            </button>
+          )}
+        </div>
 
         <div className="community-feed">
           {filteredSpots.map((spot) => (
             <Link
               to={`/spot/${spot.name.toLowerCase().replaceAll(" ", "-")}`}
               className="community-feed-card"
-              key={spot.name}
+              key={`${spot.city}-${spot.name}`}
             >
               <div
                 className="community-feed-image"

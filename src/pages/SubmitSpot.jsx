@@ -7,7 +7,40 @@ function SubmitSpot() {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    const formData = new FormData(event.target);
+
+    const newSpot = {
+      name: formData.get("spotName"),
+      city: formData.get("city"),
+      description: formData.get("description"),
+      rating: 0,
+      bestTime: formData.get("bestTime"),
+      type: formData.get("type"),
+      access: formData.get("access"),
+      address: formData.get("address"),
+      hiddenLevel: formData.get("hiddenLevel"),
+      submittedBy: formData.get("username"),
+      upvotes: 0,
+      image: "https://images.unsplash.com/photo-1531218150217-54595bc2b934",
+      tags: [
+        formData.get("type"),
+        formData.get("bestTime"),
+        formData.get("hiddenLevel"),
+      ],
+      comments: [],
+    };
+
+    const existingSpots =
+      JSON.parse(localStorage.getItem("submittedSpots")) || [];
+
+    localStorage.setItem(
+      "submittedSpots",
+      JSON.stringify([newSpot, ...existingSpots])
+    );
+
     setSubmitted(true);
+    event.target.reset();
   }
 
   return (
@@ -17,7 +50,7 @@ function SubmitSpot() {
         <div className="nav-links">
           <Link to="/">Home</Link>
           <Link to="/explore">Explore</Link>
-          <Link to="/city/houston">Houston</Link>
+          <Link to="/community">Community</Link>
         </div>
       </nav>
 
@@ -36,29 +69,47 @@ function SubmitSpot() {
           <div className="success-card">
             <h3>Spot submitted!</h3>
             <p>
-              Thanks for helping grow SkylineSpots. In a future version, this
-              submission could be reviewed, posted publicly, and commented on by
-              other users.
+              Your spot was saved to this browser and will now appear in the
+              Community page. In a future version, submissions can be stored in
+              a real database and shown to everyone.
             </p>
-            <Link to="/">
-              <button>Back to Home</button>
-            </Link>
+
+            <div className="success-actions">
+              <Link to="/community">
+                <button>View Community Feed</button>
+              </Link>
+
+              <button onClick={() => setSubmitted(false)}>
+                Submit Another Spot
+              </button>
+            </div>
           </div>
         ) : (
           <form className="submit-form" onSubmit={handleSubmit}>
             <label>
               Your Username
-              <input type="text" placeholder="Example: skylinehunter21" required />
+              <input
+                name="username"
+                type="text"
+                placeholder="Example: skylinehunter21"
+                required
+              />
             </label>
 
             <label>
               City
-              <input type="text" placeholder="Example: Houston" required />
+              <input
+                name="city"
+                type="text"
+                placeholder="Example: Houston"
+                required
+              />
             </label>
 
             <label>
               Spot Name
               <input
+                name="spotName"
                 type="text"
                 placeholder="Example: Downtown garage view near Midtown"
                 required
@@ -68,6 +119,7 @@ function SubmitSpot() {
             <label>
               Specific Address or Location
               <input
+                name="address"
                 type="text"
                 placeholder="Example: 123 Main St, rooftop level, or near a specific intersection"
                 required
@@ -76,7 +128,7 @@ function SubmitSpot() {
 
             <label>
               What kind of spot is it?
-              <select required>
+              <select name="type" required>
                 <option>Parking Garage</option>
                 <option>Rooftop</option>
                 <option>Bridge</option>
@@ -90,17 +142,17 @@ function SubmitSpot() {
 
             <label>
               How hidden is this spot?
-              <select required>
-                <option>Very hidden</option>
-                <option>Somewhat hidden</option>
-                <option>Local favorite</option>
-                <option>Popular but still worth it</option>
+              <select name="hiddenLevel" required>
+                <option>Hidden Gem</option>
+                <option>Local Favorite</option>
+                <option>Popular but worth it</option>
+                <option>Community Spot</option>
               </select>
             </label>
 
             <label>
               Best Time to Visit
-              <select required>
+              <select name="bestTime" required>
                 <option>Sunset</option>
                 <option>Golden Hour</option>
                 <option>Night</option>
@@ -110,17 +162,21 @@ function SubmitSpot() {
             </label>
 
             <label>
-              Access / Parking Notes
-              <textarea
-                placeholder="Explain parking, whether it is free or paid, how easy it is to access, or anything visitors should know."
-                required
-              />
+              Access
+              <select name="access" required>
+                <option>Free</option>
+                <option>Paid</option>
+                <option>Free/Paid Parking</option>
+                <option>Limited Access</option>
+                <option>Unknown</option>
+              </select>
             </label>
 
             <label>
               Why is this spot good?
               <textarea
-                placeholder="Describe the skyline angle, photo opportunities, vibe, crowd level, and what makes it unique."
+                name="description"
+                placeholder="Describe the skyline angle, photo opportunities, vibe, crowd level, parking, and what makes it unique."
                 required
               />
             </label>
