@@ -3,6 +3,11 @@ import "../App.css";
 import { cities, spots } from "../data.js";
 
 function Home() {
+  const submittedSpots =
+    JSON.parse(localStorage.getItem("submittedSpots")) || [];
+
+  const allSpots = [...submittedSpots, ...spots];
+
   return (
     <div className="app">
       <nav className="navbar">
@@ -16,6 +21,12 @@ function Home() {
       </nav>
 
       <section className="hero">
+        <video className="hero-bg-video" autoPlay muted loop playsInline>
+          <source src="/videos/skyline-hero.mp4" type="video/mp4" />
+        </video>
+
+        <div className="hero-overlay"></div>
+
         <div className="hero-content">
           <p className="tagline">CITY VIEWS • HIDDEN GEMS • LOCAL SPOTS</p>
           <h1>Discover hidden skyline spots shared by locals.</h1>
@@ -78,11 +89,11 @@ function Home() {
         </div>
 
         <div className="recent-grid">
-          {spots.slice(0, 4).map((spot) => (
+          {allSpots.slice(0, 4).map((spot) => (
             <Link
               to={`/spot/${spot.name.toLowerCase().replaceAll(" ", "-")}`}
               className="recent-card"
-              key={spot.name}
+              key={`${spot.city}-${spot.name}`}
             >
               <p className="country">{spot.city}</p>
               <h3>{spot.name}</h3>
@@ -103,7 +114,7 @@ function Home() {
         </div>
 
         <div className="center-button">
-          <Link to="/explore">
+          <Link to="/community">
             <button>View All Community Spots</button>
           </Link>
         </div>
@@ -120,8 +131,8 @@ function Home() {
         </div>
 
         <div className="spot-list">
-          {spots.map((spot) => (
-            <div className="spot-card" key={spot.name}>
+          {allSpots.map((spot) => (
+            <div className="spot-card" key={`${spot.city}-${spot.name}`}>
               <div>
                 <p className="country">{spot.city}</p>
                 <h3>{spot.name}</h3>
@@ -143,7 +154,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="section submit-section" id="submit">
+      <section className="section submit-section">
         <h2>Know a hidden skyline spot?</h2>
         <p>
           Share a specific address, local viewpoint, rooftop, bridge, parking

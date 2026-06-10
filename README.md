@@ -1,49 +1,16 @@
 # SkylineSpots
 
-SkylineSpots is a city-view discovery website that helps users find skyline viewpoints, rooftops, parks, bridges, and hidden photo spots in different cities.
+A community-driven skyline discovery website where users find and share hidden rooftops, parking garages, bridges, parks, overlooks, and local city-view spots.
 
-## Live Demo
-
-https://skyline-spots.vercel.app/
+Live demo: https://skyline-spots.vercel.app/
 
 ## Features
-
-- Home page with a modern dark city-explorer design
-- Explore Cities page
-- Search/filter bar for cities and tags
-- City detail pages
-- Skyline spot cards
-- Individual spot detail pages
-- Submit Spot form with confirmation message
-- Responsive layout for different screen sizes
+- Home page with featured cities and recent community submissions
+- Explore page with search and community-created cities
+- Community feed with search, filters, and sorting
+- City pages with filters and sorting
+- Spot detail pages with upvotes and comments
+- Submit page that saves new spots in localStorage
 
 ## Tech Stack
-
-- React
-- Vite
-- React Router
-- CSS
-- Vercel for deployment
-- GitHub for version control
-
-## Current Cities
-
-- Houston
-- New York City
-- Chicago
-- Los Angeles
-- London
-- Tokyo
-
-## Future Improvements
-
-- Add more skyline spots for each city
-- Add better real images for every spot
-- Add map integration
-- Save submitted spots with a database
-- Add user reviews and ratings
-- Add admin approval for submitted spots
-
-## Project Goal
-
-The goal of SkylineSpots is to create a clean, useful, and visually appealing platform for people who enjoy city skylines, photography, travel, and discovering hidden viewpoints.
+React, Vite, React Router, CSS, localStorage, Vercel.
