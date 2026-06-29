@@ -8,11 +8,17 @@ function Home() {
 
   const allSpots = [...submittedSpots, ...spots];
 
+  const recentSpots = allSpots.slice(0, 4);
+  const topSpots = [...allSpots]
+    .sort((a, b) => (b.upvotes ?? 0) - (a.upvotes ?? 0))
+    .slice(0, 5);
+
   return (
     <div className="app">
       <nav className="navbar">
         <h2>SkylineSpots</h2>
         <div className="nav-links">
+          <Link to="/">Home</Link>
           <Link to="/explore">Explore</Link>
           <Link to="/community">Community</Link>
           <a href="#spots">Top Spots</a>
@@ -28,15 +34,31 @@ function Home() {
         <div className="hero-overlay"></div>
 
         <div className="hero-content">
-          <p className="tagline">CITY VIEWS • HIDDEN GEMS • LOCAL SPOTS</p>
-          <h1>Discover hidden skyline spots shared by locals.</h1>
+          <p className="tagline">CITY VIEWS • LOCAL SPOTS • HIDDEN ANGLES</p>
+
+          <h1>Find the skyline spots locals actually use.</h1>
+
           <p className="hero-text">
-            Find niche rooftops, parking garages, bridges, parks, and overlooked
-            city-view spots submitted by people who know the area best.
+            Discover specific rooftops, bridges, parks, parking garages, and
+            street corners where people go to see the city skyline — not just
+            tourist decks.
           </p>
-          <a href="#cities">
-            <button>Start Exploring</button>
-          </a>
+
+          <div className="hero-stats">
+            <span>10+ spots submitted</span>
+            <span>5 cities</span>
+            <span>Rooftops, bridges, parks, garages</span>
+          </div>
+
+          <div className="hero-actions">
+            <a href="#cities">
+              <button>Explore Local Spots</button>
+            </a>
+
+            <Link to="/submit">
+              <button className="secondary-button">Submit a Hidden Spot</button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -68,7 +90,7 @@ function Home() {
                 <p>{city.description}</p>
 
                 <div className="tag-row">
-                  {city.tags.map((tag) => (
+                  {[...new Set(city.tags)].map((tag) => (
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
@@ -83,31 +105,38 @@ function Home() {
           <p className="section-label">COMMUNITY</p>
           <h2>Recent Community Submissions</h2>
           <p>
-            Discover skyline spots shared by local users, from hidden parks to
-            rooftops, bridges, overlooks, and lowkey city-view angles.
+            Real skyline viewpoints shared by users — from hidden parks and
+            bridges to rooftops, overlooks, and lowkey photo angles.
           </p>
         </div>
 
-        <div className="recent-grid">
-          {allSpots.slice(0, 4).map((spot) => (
+        <div className="recent-grid image-recent-grid">
+          {recentSpots.map((spot) => (
             <Link
               to={`/spot/${spot.name.toLowerCase().replaceAll(" ", "-")}`}
-              className="recent-card"
+              className="recent-card image-recent-card"
               key={`${spot.city}-${spot.name}`}
             >
-              <p className="country">{spot.city}</p>
-              <h3>{spot.name}</h3>
-              <p>{spot.description}</p>
+              <div
+                className="recent-card-image"
+                style={{ backgroundImage: `url(${spot.image})` }}
+              ></div>
 
-              <div className="mini-community-row">
-                <p>▲ {spot.upvotes ?? 0} upvotes</p>
-                <p>@{spot.submittedBy ?? "anonymous"}</p>
-              </div>
+              <div className="recent-card-content">
+                <p className="country">{spot.city}</p>
+                <h3>{spot.name}</h3>
+                <p>{spot.description}</p>
 
-              <div className="tag-row">
-                <span>{spot.hiddenLevel ?? "Community Spot"}</span>
-                <span>{spot.type}</span>
-                <span>{spot.bestTime}</span>
+                <div className="mini-community-row">
+                  <p>▲ {spot.upvotes ?? 0} upvotes</p>
+                  <p>@{spot.submittedBy ?? "anonymous"}</p>
+                </div>
+
+                <div className="tag-row">
+                  {[...new Set(spot.tags || [])].slice(0, 3).map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
               </div>
             </Link>
           ))}
@@ -125,31 +154,43 @@ function Home() {
           <p className="section-label">TOP PICKS</p>
           <h2>Top Skyline Spots</h2>
           <p>
-            A quick look at popular and community-recommended places to view the
-            skyline.
+            The highest-upvoted skyline viewpoints from the community, ranked by
+            local interest.
           </p>
         </div>
 
-        <div className="spot-list">
-          {allSpots.map((spot) => (
-            <div className="spot-card" key={`${spot.city}-${spot.name}`}>
-              <div>
+        <div className="top-spot-list">
+          {topSpots.map((spot, index) => (
+            <Link
+              to={`/spot/${spot.name.toLowerCase().replaceAll(" ", "-")}`}
+              className="top-spot-card"
+              key={`${spot.city}-${spot.name}`}
+            >
+              <div className="top-rank">#{index + 1}</div>
+
+              <div
+                className="top-spot-image"
+                style={{ backgroundImage: `url(${spot.image})` }}
+              ></div>
+
+              <div className="top-spot-content">
                 <p className="country">{spot.city}</p>
                 <h3>{spot.name}</h3>
                 <p>{spot.description}</p>
 
                 <div className="tag-row">
-                  {spot.tags.map((tag) => (
+                  {[...new Set(spot.tags || [])].slice(0, 4).map((tag) => (
                     <span key={tag}>{tag}</span>
                   ))}
                 </div>
               </div>
 
-              <div className="spot-meta">
+              <div className="top-spot-meta">
                 <p>⭐ {spot.rating}</p>
+                <p>▲ {spot.upvotes ?? 0}</p>
                 <p>{spot.bestTime}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
