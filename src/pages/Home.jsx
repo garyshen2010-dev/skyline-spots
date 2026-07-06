@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../App.css";
-import { cities, spots } from "../data.js";
+import { cities, getSpotBadges, spots } from "../data.js";
 
 function Home() {
   const submittedSpots =
@@ -132,6 +132,12 @@ function Home() {
                   <p>@{spot.submittedBy ?? "anonymous"}</p>
                 </div>
 
+                <div className="badge-row">
+                  {getSpotBadges(spot).map((badge) => (
+                    <span key={badge}>{badge}</span>
+                  ))}
+                </div>
+
                 <div className="tag-row">
                   {[...new Set(spot.tags || [])].slice(0, 3).map((tag) => (
                     <span key={tag}>{tag}</span>
@@ -181,6 +187,12 @@ function Home() {
                 <div className="tag-row">
                   {[...new Set(spot.tags || [])].slice(0, 4).map((tag) => (
                     <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+
+                <div className="badge-row">
+                  {getSpotBadges(spot).map((badge) => (
+                    <span key={badge}>{badge}</span>
                   ))}
                 </div>
               </div>

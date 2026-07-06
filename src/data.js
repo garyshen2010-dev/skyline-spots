@@ -397,3 +397,20 @@ export const spots = [
     ],
   },
 ];
+
+export function getSpotBadges(spot) {
+  const tags = spot.tags || [];
+  const badges = [];
+
+  if (spot.bestTime === "Sunset") badges.push("Best at sunset");
+  if (spot.access === "Free") badges.push("Free");
+  if (tags.includes("Photography") || spot.badges?.includes("Photo Friendly")) {
+    badges.push("Photo spot");
+  }
+  if (spot.hiddenLevel === "Hidden Gem") badges.push("Hidden gem");
+  if (["Park", "Bridge", "Waterfront Park", "Lakefront"].includes(spot.type)) {
+    badges.push("Walkable");
+  }
+
+  return [...new Set([...badges, ...(spot.badges || [])])].slice(0, 4);
+}
